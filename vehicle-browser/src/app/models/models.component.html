@@ -1,0 +1,39 @@
+<h1>Models</h1>
+<p>
+</p>
+
+<button (click)="next()">Previous</button>
+<button (click)="previous()">Next</button><br>
+<br>
+Year:  
+<select [(ngModel)]="yearFilter">
+  <option value=""></option>
+  <option *ngFor='let year of years' >{{ year }}</option>
+</select> 
+
+Make:
+<select [(ngModel)]="makeFilter">
+  <option value=""></option>
+  <option *ngFor='let make of makes' >{{ make }}</option>
+</select>
+
+<button (click)="loadVehicles()">Apply</button><br>
+<br>
+<br>
+
+<table width=100%>
+  <tr>
+    <th>ID</th>
+    <th>Year</th>
+    <th>Make</th>
+    <th>Model</th>
+    <th>details</th>
+  </tr>
+  <tr *ngFor='let v of vehicles'>
+    <td>{{ v.id }}</td> 
+    <td>{{ v.year }}</td>
+    <td>{{ v.make }}</td>
+    <td>{{ v.model }}</td>
+    <td>{{ v.hasDetails }}</td>
+  </tr>
+</table>
