@@ -19,7 +19,7 @@ import { ModelsComponent } from './models/models.component';
     AboutComponent,
     ModelsComponentComponent,
     ModelsComponent
-    
+
   ],
   imports: [
     BrowserModule,

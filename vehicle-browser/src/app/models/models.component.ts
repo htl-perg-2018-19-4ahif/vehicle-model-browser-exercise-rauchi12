@@ -27,10 +27,10 @@ export class ModelsComponent implements OnInit {
   makes: IMake[];
   years: IYear[];
 
-  yearFilter:number;
-  makeFilter='';
+  yearFilter = '';
+  makeFilter = '';
 
-  offset=0;
+  offset = 0;
 
   constructor(private http: HttpClient) {
   }
@@ -42,41 +42,31 @@ export class ModelsComponent implements OnInit {
   }
 
 
-  async loadVehicles(){
-    if (this.makeFilter === '' && this.yearFilter === undefined) {
-      this.vehicles = await this.http.get<IVehicle[]>('https://vehicle-data.azurewebsites.net/api/models').toPromise();
-    }
-    if (this.makeFilter === '' && this.yearFilter !== undefined) {
+  async loadVehicles() {
+      this.offset = 0;
       // tslint:disable-next-line:max-line-length
-      this.vehicles = await this.http.get<IVehicle[]>('https://vehicle-data.azurewebsites.net/api/models?year=' + this.yearFilter).toPromise();
-    }
-    if (this.makeFilter !== '' && this.yearFilter === undefined) {
-      // tslint:disable-next-line:max-line-length
-      this.vehicles = await this.http.get<IVehicle[]>('https://vehicle-data.azurewebsites.net/api/models?make=' + this.makeFilter).toPromise();
-    }
-    if (this.makeFilter !== '' && this.yearFilter !== undefined) {
-      // tslint:disable-next-line:max-line-length
-      this.vehicles = await this.http.get<IVehicle[]>('https://vehicle-data.azurewebsites.net/api/models?make=' + this.makeFilter + '&year=' + this.yearFilter).toPromise();
-    }
+      this.vehicles = await this.http.get<IVehicle[]>('https://vehicle-data.azurewebsites.net/api/models?make=' + this.makeFilter + '&year=' + this.yearFilter + '&offset=' + this.offset).toPromise();
   }
 
-  async loadMakes(){
+  async loadMakes() {
     this.makes = await this.http.get<IMake[]>('https://vehicle-data.azurewebsites.net/api/makes').toPromise();
   }
 
-  async loadYears(){
+  async loadYears() {
     this.years = await this.http.get<IYear[]>('https://vehicle-data.azurewebsites.net/api/years').toPromise();
   }
 
-  async previous(){
-    this.offset = this.offset+10;
-    this.vehicles = await this.http.get<IVehicle[]>('https://vehicle-data.azurewebsites.net/api/models?offset=' + this.offset).toPromise();
+  async previous() {
+    this.offset = this.offset + 10;
+// tslint:disable-next-line: max-line-length
+    this.vehicles = await this.http.get<IVehicle[]>('https://vehicle-data.azurewebsites.net/api/models?make=' + this.makeFilter + '&year=' + this.yearFilter + '&offset=' + this.offset).toPromise();
   }
-  
-  async next(){
-    if(this.offset >9 ){
-      this.offset = this.offset-10;
+
+  async next() {
+    if (this.offset > 9 ) {
+      this.offset = this.offset - 10;
     }
-    this.vehicles = await this.http.get<IVehicle[]>('https://vehicle-data.azurewebsites.net/api/models?offset=' + this.offset).toPromise();
+// tslint:disable-next-line: max-line-length
+    this.vehicles = await this.http.get<IVehicle[]>('https://vehicle-data.azurewebsites.net/api/models?make=' + this.makeFilter + '&year=' + this.yearFilter + '&offset=' + this.offset).toPromise();
   }
 }

@@ -7,7 +7,7 @@ import { LoremIpsum } from 'lorem-ipsum';
   styleUrls: ['./about.component.css']
 })
 export class AboutComponent implements OnInit {
-  public para ='';
+  public para = '';
   constructor() { }
 
   ngOnInit() {
@@ -27,6 +27,5 @@ export class AboutComponent implements OnInit {
     });
 
     this.para = lorem.generateParagraphs(5);
-  
   }
 }
